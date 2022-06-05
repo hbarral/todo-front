@@ -9,7 +9,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -29,7 +29,7 @@ module.exports = {
       rules: {
         '@typescript-eslint/explicit-module-boundary-types': ['error'],
       },
-    }
+    },
   ],
   settings: {
     react: {
@@ -40,7 +40,7 @@ module.exports = {
   plugins: [
     'react',
     '@typescript-eslint',
-    'react-hooks'
+    'react-hooks',
   ],
   rules: {
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
@@ -51,7 +51,7 @@ module.exports = {
       {
         before: true,
         after: true,
-      }
+      },
     ],
     'block-spacing': [2, 'always'],
     'brace-style': [
@@ -59,30 +59,30 @@ module.exports = {
       '1tbs',
       {
         allowSingleLine: true,
-      }
+      },
     ],
     camelcase: [
       0,
       {
         properties: 'always',
-      }
+      },
     ],
     'comma-dangle': [
       'error',
       {
-        arrays: 'never',
+        arrays: 'always-multiline',
         objects: 'always-multiline',
         imports: 'never',
         exports: 'never',
         functions: 'ignore',
-      }
+      },
     ],
     'comma-spacing': [
       2,
       {
         before: false,
         after: true,
-      }
+      },
     ],
     'comma-style': [2, 'last'],
     'constructor-super': 2,
@@ -94,7 +94,7 @@ module.exports = {
       'always',
       {
         null: 'ignore',
-      }
+      },
     ],
     'generator-star-spacing': ['error', { before: false, after: true }],
     'handle-callback-err': [2, '^(err|error)$'],
@@ -103,7 +103,7 @@ module.exports = {
       2,
       {
         SwitchCase: 1,
-      }
+      },
     ],
     'jsx-quotes': [2, 'prefer-single'],
     'key-spacing': [
@@ -111,21 +111,21 @@ module.exports = {
       {
         beforeColon: false,
         afterColon: true,
-      }
+      },
     ],
     'keyword-spacing': [
       2,
       {
         before: true,
         after: true,
-      }
+      },
     ],
     'new-cap': [
       2,
       {
         newIsCap: true,
         capIsNew: false,
-      }
+      },
     ],
     'new-parens': 2,
     'no-array-constructor': 2,
@@ -161,7 +161,7 @@ module.exports = {
       {
         allowLoop: false,
         allowSwitch: false,
-      }
+      },
     ],
     'no-lone-blocks': 2,
     'no-mixed-spaces-and-tabs': 2,
@@ -171,7 +171,7 @@ module.exports = {
       2,
       {
         max: 1,
-      }
+      },
     ],
     'no-native-reassign': 2,
     'no-negated-in-lhs': 2,
@@ -204,7 +204,7 @@ module.exports = {
       2,
       {
         defaultAssignment: false,
-      }
+      },
     ],
     'no-unreachable': 2,
     'no-unsafe-finally': 2,
@@ -213,7 +213,7 @@ module.exports = {
       {
         vars: 'all',
         args: 'none',
-      }
+      },
     ],
     'no-useless-call': 2,
     'no-useless-computed-key': 2,
@@ -225,7 +225,7 @@ module.exports = {
       2,
       {
         initialized: 'never',
-      }
+      },
     ],
     'operator-linebreak': [
       2,
@@ -235,7 +235,7 @@ module.exports = {
           '?': 'before',
           ':': 'before',
         },
-      }
+      },
     ],
     'padded-blocks': [2, 'never'],
     quotes: [
@@ -244,7 +244,7 @@ module.exports = {
       {
         avoidEscape: true,
         allowTemplateLiterals: true,
-      }
+      },
     ],
     semi: [2, 'never'],
     'semi-spacing': [
@@ -252,7 +252,7 @@ module.exports = {
       {
         before: false,
         after: true,
-      }
+      },
     ],
     'space-before-blocks': [2, 'always'],
     'space-before-function-paren': [
@@ -261,7 +261,7 @@ module.exports = {
         anonymous: 'always',
         named: 'never',
         asyncArrow: 'always',
-      }
+      },
     ],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
@@ -270,14 +270,14 @@ module.exports = {
       {
         words: true,
         nonwords: false,
-      }
+      },
     ],
     'spaced-comment': [
       2,
       'always',
       {
         markers: ['global', 'globals', 'eslint', 'eslint-disable', '*package', '!', ','],
-      }
+      },
     ],
     'template-curly-spacing': [2, 'never'],
     'use-isnan': 2,
@@ -292,7 +292,7 @@ module.exports = {
       {
         arraysInObjects: true,
         objectsInObjects: true,
-      }
+      },
     ],
     'array-bracket-spacing': [2, 'never'],
     'arrow-parens': ['error', 'as-needed'],
@@ -303,7 +303,7 @@ module.exports = {
         ignoreUrls: true,
         ignoreTemplateLiterals: true,
         ignoreStrings: true,
-      }
+      },
     ],
     'max-statements': ['error', 150],
     'no-empty': 'error',
@@ -316,5 +316,20 @@ module.exports = {
     'no-var': 'error',
 
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'react/jsx-max-props-per-line': [1, { maximum: 1, when: 'multiline' }],
+    'react/self-closing-comp': ['error', {
+      'component': true,
+      'html': true,
+    }],
+    'react/jsx-closing-bracket-location': [1, { selfClosing: 'tag-aligned', nonEmpty: 'tag-aligned' }],
+    'react/jsx-tag-spacing': [
+      'error',
+      {
+        closingSlash: 'never',
+        beforeSelfClosing: 'always',
+        afterOpening: 'never',
+        beforeClosing: 'allow',
+      },
+    ],
   },
 }
