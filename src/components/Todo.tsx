@@ -5,10 +5,10 @@ import { ITodoProps } from '../types'
 function Todo({ todos, removeTodo }: ITodoProps): ReactElement {
   const [currentId, setCurrentId] = useState<number>(-1)
 
-  return <> {
+  return <div className='overflow-x-hidden overflow-y-auto' style={{ maxHeight: '40%', height: '400px' }}> {
     todos.map((todo, index) => (
       <div
-        className='flex flex-row items-center justify-center h-16 mb-2 bg-gray-300 rounded-md'
+        className='flex flex-row items-center justify-center h-16 mb-2 bg-gray-300 rounded-md '
         key={index}
         onMouseEnter={() => setCurrentId(todo.id)}
         onMouseLeave={() => setCurrentId(todo.id)}
@@ -28,7 +28,7 @@ function Todo({ todos, removeTodo }: ITodoProps): ReactElement {
         }
       </div>
     ))
-  }</>
+  }</div>
 }
 
 export default Todo
