@@ -1,0 +1,42 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  DIST_FOLDER: dist
+
+build:
+  image: node:14
+  stage: build
+  script:
+    - npm i
+    - tsc && vite build
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - $DIST_FOLDER
+
+deploy:
+  # only:
+  #   - master
+  image: debian:stable
+  stage: deploy
+  variables:
+    REMOTE_HOST: hectorbarral.com
+    DEPLOY_PATH: /home/deploy/web/labs.todo-front.hectorbarral.com
+    PORT: "${PORT}"
+    USER: "${USER}"
+  script:
+    - which ssh-agent ||(apt-get update -y && apt-get install openssh-client -y)
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -p $PORT $REMOTE_HOST > ~/.ssh/known_hosts
+    - echo "${DEPLOYER_SSH_KEY}" | tr -d '\r' | ssh-add -
+    - export DEPLOY_TIME=$(TZ="America/Asuncion" date +%Y-%m-%d_%H:%M:%S)
+    - export RELEASE_PATH=$DEPLOY_PATH/releases/$DEPLOY_TIME
+    - ssh -p $PORT "$USER"@"$REMOTE_HOST" "mkdir -p $RELEASE_PATH"
+    - scp -P $PORT -r "$DIST_FOLDER"/* "$USER"@"$REMOTE_HOST:$RELEASE_PATH"
+    - ssh -p $PORT "$USER"@"$REMOTE_HOST" "cd $DEPLOY_PATH/releases && ls -t | sed -e '1,3d' | xargs -d '\n' rm -rf"
+    - ssh -p $PORT "$USER"@"$REMOTE_HOST" "cd $DEPLOY_PATH && rm -rf public_html/"
+    - ssh -p $PORT "$USER"@"$REMOTE_HOST" "cd $DEPLOY_PATH && cp -r $RELEASE_PATH public_html"
